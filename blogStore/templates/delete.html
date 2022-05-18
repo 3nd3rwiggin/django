@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content%}
+
+{% if user.is_authenticated %}
+    {%if user.id == post.author.id%}
+    
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <p style="margin-top:40px;"> Are you sure to delete <strong>{{post.title}}?</strong> </p>
+        <button class="btn btn-dark mb-3 mt-4" >Delete</button>
+
+    </form>
+
+    {%else%}
+
+    <script>
+        window.location='/userApp/login/'
+        </script>
+        {%endif%}
+    {%else%}
+    <script>
+    window.location='/userApp/login/'
+    </script>
+    {%endif%}
+    {%endblock%}

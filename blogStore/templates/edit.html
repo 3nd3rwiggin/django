@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content%}
+
+{% if user.is_authenticated %}
+    {%if user.id == post.author.id%}
+    
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button class="btn btn-primary mb-3" >Update</button>
+
+    </form>
+    <script>
+        document.querySelector("#id_category").setAttribute("class", "form-control")
+        document.querySelector("#id_thumbnail").setAttribute("class", "form-control")
+        document.querySelector("#id_description").setAttribute("class", "form-control")
+
+        document.querySelector("form").style.marginTop="50px"
+        document.querySelector("#id_title").setAttribute("class", "form-control")
+        document.querySelector(".django-ckeditor-widget").style.width="100%";
+    </script>
+    {%else%}
+
+    <script>
+        window.location='/userApp/login/'
+        </script>
+        {%endif%}
+    {%else%}
+    <script>
+    window.location='/userApp/login/'
+    </script>
+    {%endif%}
+    {%endblock%}

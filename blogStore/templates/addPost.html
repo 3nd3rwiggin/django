@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content%}
+
+{% if user.is_authenticated %}
+
+
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button class="btn btn-primary mb-3" >Post</button>
+
+    </form>
+
+    <script>
+        document.querySelector("#id_author").parentElement.style.display="none";
+        {% comment %} form-control {% endcomment %}
+
+        document.querySelector("#id_author").value= {{user.id}};
+
+        document.querySelector("form").style.marginTop="50px"
+        document.querySelector("#id_title").setAttribute("class", "form-control")
+        document.querySelector(".django-ckeditor-widget").style.width="100%";
+        
+        document.querySelector("#id_category").setAttribute("class", "form-control")
+        document.querySelector("#id_thumbnail").setAttribute("class", "form-control")
+        document.querySelector("#id_description").setAttribute("class", "form-control")
+    
+        let totalWidth = document.querySelector("#id_description").offsetWidth;
+        document.querySelector("#cke_id_body").style.width= totalWidth+"px";
+
+        
+    </script>
+
+
+
+{%else%}
+<script>
+window.location='/userApp/login/'
+</script>
+{%endif%}
+{%endblock%}
